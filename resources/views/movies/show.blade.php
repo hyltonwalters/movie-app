@@ -85,14 +85,17 @@
         <div class="mt-8">
           <div>
             @if($cast['profile_path'])
-            <img src="{{ "https://images.tmdb.org/t/p/w500" . $cast['profile_path'] }}" alt="{{ $cast['name'] }}"
-              class="hover:opacity-75 transition ease-in-out duration-150">
+            <a href="{{ route('actors.show', $cast['id']) }}">
+              <img src="{{ "https://images.tmdb.org/t/p/w500" . $cast['profile_path'] }}" alt="{{ $cast['name'] }}"
+                class="hover:opacity-75 transition ease-in-out duration-150">
+            </a>
             @else
             <img src="https://via.placeholder.com/50x75" alt="poster" class="w-64">
             @endif
           </div>
           <div class=" mt-2">
-            <div class="text-lg hover:text-gray-300 mt-2">{{ $cast['name'] }}</div>
+            <a href="{{ route('actors.show', $cast['id']) }}"
+              class="text-lg hover:text-gray-300 mt-2">{{ $cast['name'] }}</a>
             <div class="text-gray-400 text-sm">
               {{ $cast['character'] }}
             </div>
@@ -140,4 +143,7 @@
         </div>
 
       </div>
-      @endsection
+    </div>
+  </div>
+</div>
+@endsection

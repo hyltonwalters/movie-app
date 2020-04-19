@@ -1,7 +1,7 @@
 <div class="relative mt-2 md:mt-0" x-data="{ isOpen: true }" @click.away="isOpen = false">
   <input wire:model.debounce.500ms="search" type="text"
     class="bg-gray-800 rounded-full w-64 px-4 pl-8 py-1 text-sm focus:outline-none focus:shadow-outline"
-    placeholder="Search" x-ref="search"
+    placeholder="Search (Press / to focus)" x-ref="search"
     @keydown.window="if (event.keyCode === 191) {event.preventDefault(); $refs.search.focus();}" @focus="isOpen = true"
     @keydown="isOpen = true" @keydown.escape.window="isOpen = false" @keydown.shift.tab="isOpen = false">
   <div class="absolute top-0">

@@ -8,30 +8,56 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
       @foreach ($popularActors as $actor)
       <div class="actor mt-8">
-        <a href="#">
+        <a href="{{ route('actors.show', $actor['id']) }}">
           <img src="{{ $actor['profile_path'] }}" alt="profile image"
             class="hover:opacity-75 transition ease-in-out duration-150">
         </a>
         <div class="mt-2">
-          <a href="#" class="text-lg hover:text-gray-300">{{ $actor['name'] }}</a>
+          <a href="{{ route('actors.show', $actor['id']) }}"
+            class="text-lg hover:text-gray-300">{{ $actor['name'] }}</a>
           <div class="text-sm truncate text-gray-400">{{ $actor['known_for'] }}</div>
         </div>
       </div>
       @endforeach
     </div>
+
+    {{-- <div class="page-load-status my-8">
+      <div class="flex justify-center">
+        <p class="infinite-scroll-request spinner my-8 text-4xl">&nbsp;</p>
+      </div>
+      <p class="infinite-scroll-last">End of content</p>
+      <p class="infinite-scroll-error">No more pages to load</p>
+    </div> --}}
+
     <div class="mt-16 flex justify-between">
       @if ($previous)
-      <a href="/actors/page/{{ $previous }}">Previous</a>
+      <a href="/actors/page/{{ $previous }}"><button
+          class="px-3 py-3 text-gray-400 bg-gray-800 hover:bg-orange-700 rounded-full focus:outline-none">Previous</button></a>
       @else
       <div></div>
       @endif
       @if ($next)
-      <a href="/actors/page/{{ $next }}">Next</a>
+      <a href="/actors/page/{{ $next }}"><button
+          class="px-3 py-3 text-gray-400 bg-gray-800 hover:bg-orange-700 rounded-full focus:outline-none">Next</button></a>
       @else
       <div></div>
       @endif
     </div>
-  </div>
-</div>
 
-@endsection
+  </div>
+
+  @endsection
+
+  @section('scripts')
+  {{-- <script src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.min.js"></script>
+<script>
+  var elem = document.querySelector('.grid');
+  var infScroll = new InfiniteScroll( elem, {
+  // options
+  path: '/actors/page/@{{#}}',
+  append: '.actor',
+  // history: false,
+  status: '.page-load-status',
+  });
+  </script> --}}
+  @endsection

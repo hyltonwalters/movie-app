@@ -28,7 +28,7 @@ class ActorsViewModel extends ViewModel
       ])->only([
         'profile_path', 'id', 'name', 'known_for'
       ]);
-    })->dump();
+    });
   }
 
   public function previous()
