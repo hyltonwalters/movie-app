@@ -2,24 +2,24 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Movie App</title>
-  <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-  @livewireStyles
-  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie App</title>
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    @livewireStyles
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 </head>
 
 <body class="font-sans bg-gray-900 text-white ">
 
-  <nav class="border-b border-gray-800">
-    <div class="container mx-auto flex flex-col md:flex-row items-center justify-between px-4 py-6">
-      <ul class="flex flex-col md:flex-row items-center">
-        <li class="flex flex-col md:flex-row">
-          <a class="flex" href="{{ route('movies.index') }}">
-            <svg class="w-8 pb-2" x="0px" y="0px" viewBox="0 0 490 490"
-              style="enable-background:new 0 0 497.407 497.407;" xml:space="preserve" fill="#fff">
-              <path d="M355.581,158.864h-58.212c0-11.886-9.265-22.301-23.156-28.114l35.772-55.089c0.815,0.135,1.649,0.223,2.506,0.223
+    <nav class="border-b border-gray-800">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between px-4 py-6">
+            <ul class="flex flex-col md:flex-row items-center">
+                <li class="flex flex-col md:flex-row">
+                    <a class="flex" href="{{ route('movies.index') }}">
+                        <svg class="w-8 pb-2" x="0px" y="0px" viewBox="0 0 490 490"
+                            style="enable-background:new 0 0 497.407 497.407;" xml:space="preserve" fill="#fff">
+                            <path d="M355.581,158.864h-58.212c0-11.886-9.265-22.301-23.156-28.114l35.772-55.089c0.815,0.135,1.649,0.223,2.506,0.223
            c8.424,0,15.252-6.829,15.252-15.252c0-8.423-6.828-15.251-15.252-15.251s-15.252,6.828-15.252,15.251
            c0,3.111,0.938,6.001,2.535,8.414l-37.711,58.076c-4.246-0.821-8.725-1.27-13.359-1.27s-9.113,0.449-13.359,1.27L167.523,22.678
            c1.47-2.293,2.333-5.012,2.333-7.938c0-8.14-6.6-14.74-14.74-14.74s-14.74,6.6-14.74,14.74c0,8.141,6.6,14.74,14.74,14.74
@@ -32,35 +32,35 @@
            s10.597-23.667,23.667-23.667s23.667,10.596,23.667,23.667S410.44,379.42,397.37,379.42z M397.37,287.753
            c-13.07,0-23.667-10.596-23.667-23.667c0-13.07,10.597-23.667,23.667-23.667s23.667,10.597,23.667,23.667
            C421.037,277.157,410.44,287.753,397.37,287.753z" />
-            </svg>
-            <span class="text-xl text-white ml-2 mt-1">MovieApp</span>
-          </a>
-        </li>
-        <li class="md:ml-16 mt-2 md:mt-0">
-          <a href="{{ route('movies.index') }}" class="hover:text-gray-300">Movies</a>
-        </li>
-        <li class="md:ml-6 mt-2 md:mt-0">
-          <a href="#" class="hover:text-gray-300">TV Shows</a>
-        </li>
-        <li class="md:ml-6 mt-2 md:mt-0">
-          <a href="{{ route('actors.index') }}" class="hover:text-gray-300">Actors</a>
-        </li>
-      </ul>
-      <div class="flex flex-col md:flex-row items-center">
-        @livewire('search-dropdown')
-        <div class="ml-4 mt-2 md:mt-0">
-          <a href="#">
-            <img src="{{ asset('img/avatar.jpg') }}" alt="avatar" class="rounded-full w-8 h-8">
-          </a>
+                        </svg>
+                        <span class="text-xl text-white ml-2 mt-1">MovieApp</span>
+                    </a>
+                </li>
+                <li class="md:ml-16 mt-2 md:mt-0">
+                    <a href="{{ route('movies.index') }}" class="hover:text-gray-300">Movies</a>
+                </li>
+                <li class="md:ml-6 mt-2 md:mt-0">
+                    <a href="{{ route('tv.index') }}" class="hover:text-gray-300">TV Shows</a>
+                </li>
+                <li class="md:ml-6 mt-2 md:mt-0">
+                    <a href="{{ route('actors.index') }}" class="hover:text-gray-300">Actors</a>
+                </li>
+            </ul>
+            <div class="flex flex-col md:flex-row items-center">
+                @livewire('search-dropdown')
+                <div class="ml-4 mt-2 md:mt-0">
+                    <a href="#">
+                        <img src="{{ asset('img/avatar.jpg') }}" alt="avatar" class="rounded-full w-8 h-8">
+                    </a>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </nav>
+    </nav>
 
-  @yield('content')
+    @yield('content')
 
-  @livewireScripts
-  @yield('scripts')
+    @livewireScripts
+    @yield('scripts')
 
 </body>
 

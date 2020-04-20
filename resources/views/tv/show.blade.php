@@ -1,0 +1,151 @@
+@extends('layouts.main')
+
+@section('content')
+
+<div class="tv-info border-b border-gray-800">
+    <div class="container mx-auto px-4 py-16 flex flex-col md:flex-row">
+        @if($tvshow['poster_path'])
+        <img src="{{ $tvshow['poster_path'] }}" alt="poster" class="w-64 md:w-96">
+        @else
+        <img src="https://via.placeholder.com/50x75" alt="poster" class="w-64 md:w-96">
+        @endif
+        <div class="md:ml-24">
+            <h2 class="text-4xl font-semibold">{{ $tvshow['name'] }}</h2>
+            <div class="flex flex-wrap items-center text-gray-400 text-sm">
+                <svg class="fill-current text-orange-500 w-4" viewBox="0 -10 511.99 511">
+                    <path
+                        d="M510.65 185.9a27.16 27.16 0 00-23.42-18.7l-147.78-13.43L281.02 17a27.22 27.22 0 00-50.05.03l-58.43 136.74-147.8 13.42a27.2 27.2 0 00-23.4 18.71 27.18 27.18 0 007.96 28.9L121 312.78 88.06 457.86a27.2 27.2 0 0010.58 28.1 27.1 27.1 0 0029.89 1.3L256 411.07l127.42 76.19a27.22 27.22 0 0040.5-29.4l-32.95-145.09 111.7-97.94a27.22 27.22 0 007.98-28.93zm0 0"
+                        fill="#ED8936" /></svg>
+                </svg>
+                <span class="ml-1">{{ $tvshow['vote_average'] }}</span>
+                <span class="mx-2">|</span>
+                <span>{{ $tvshow['first_air_date'] }}</span>
+                <span class="mx-2">|</span>
+                <span>{{ $tvshow['genres'] }}</span>
+            </div>
+
+            <div class="text-gray-300 mt-8">
+                {{ $tvshow['overview'] }}
+            </div>
+            <div class="mt-12">
+                <div class="flex mt-4">
+                    @foreach ($tvshow['created_by'] as $crew)
+                    <div class="mr-8">
+                        <div>{{ $crew['name'] }}
+                        </div>
+                        <div class="text-sm text-gray-400">Creator</div>
+                    </div>
+                    @endforeach
+                </div>
+
+                <div x-data="{isOpen: false}">
+                    @if (count($tvshow['videos']['results']) > 0)
+                    <div class="mt-12">
+                        <button @click="isOpen = true"
+                            class="flex inline-flex items-center bg-orange-500 text-gray-900 font-semibold rounded px-5 py-4 hover:bg-orange-600 transition ease-in-out duration-150">
+                            <svg class="w-6 mt-2 fill-current" viewbox=" 0 0 612 612">
+                                <path
+                                    d="M360.34 216.27L219.37 113.88a32.15 32.15 0 00-51.05 26.02v204.77a32.15 32.15 0 0051.05 26.01L360.34 268.3a32.14 32.14 0 000-52.03z" />
+                                <path
+                                    d="M242.28 0C108.69 0 0 108.69 0 242.28c0 133.6 108.69 242.29 242.28 242.29 133.6 0 242.28-108.7 242.28-242.29C484.56 108.68 375.88 0 242.28 0zm0 425.03c-100.76 0-182.74-81.98-182.74-182.75 0-100.76 81.98-182.74 182.75-182.74s182.74 81.98 182.74 182.74c0 100.77-81.98 182.75-182.74 182.75z" />
+                            </svg>
+                            <span class="ml-2">Play Trailer</span>
+                        </button>
+                    </div>
+                    @endif
+
+                    <div class="fixed top-0 left-0 h-full w-full flex items-center shadow-lg overflow-y-auto"
+                        style="background-color: rgba(0,0,0,.5);" x-show.transition.opacity="isOpen">
+                        <div class="container mx-auto lg:px-32 rounded-lg overflow-y-auto">
+                            <div class="bg-gray-900 rounded">
+                                <div class="flex justify-end pr-4 pt-2">
+                                    <button @click="isOpen = false"
+                                        class="text-3xl leading-none hover:text-gray-300">&times;</button>
+                                </div>
+                                <div class="modal-body px-8 py-8">
+                                    <div class="responsive-container overflow-hidden relative"
+                                        style="padding-top:56.25%">
+                                        <iframe
+                                            src="https://youtube.com/embed/{{ $tvshow['videos']['results'][0]['key'] }}"
+                                            class="responsive-iframe absolute top-0 left-0 w-full h-full"
+                                            style="border:0;" allow="autoplay; encrypted-media"
+                                            allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- end tv info -->
+
+<div class="tv-cast border-b border-gray-800">
+    <div class="container mx-auto px-4 py-16">
+        <h2 class="text-4xl text-semibold">Cast</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+            @foreach($tvshow['cast'] as $cast)
+            <div class="mt-8">
+                <div>
+                    @if($cast['profile_path'])
+                    <a href="{{ route('actors.show', $cast['id']) }}">
+                        <img src="{{ $cast['profile_path'] }}" alt="{{ $cast['name'] }}"
+                            class="hover:opacity-75 transition ease-in-out duration-150">
+                    </a>
+                    @else
+                    <img src="https://via.placeholder.com/50x75" alt="poster" class="w-64">
+                    @endif
+                </div>
+                <div class=" mt-2">
+                    <a href="{{ route('actors.show', $cast['id']) }}"
+                        class="text-lg hover:text-gray-300 mt-2">{{ $cast['name'] }}</a>
+                    <div class="text-gray-400 text-sm">
+                        {{ $cast['character'] }}
+                    </div>
+                </div>
+            </div>
+            @endforeach
+
+        </div>
+    </div>
+</div> <!-- end tv cast -->
+
+<div class="tvshow-images" x-data="{ isOpen: false, image: '' }">
+    <div class="container mx-auto px-4 py-16">
+        <h2 class="text-4xl text-semibold">Images</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            @foreach ($tvshow['images'] as $image)
+            <div class="mt-8">
+                <div>
+                    @if($image['file_path'])
+                    <a href="#"
+                        @click.prevent=" isOpen = true, image = '{{ "https://images.tmdb.org/t/p/original" . $image['file_path'] }}'">
+                        <img src="{{ "https://images.tmdb.org/t/p/w500" . $image['file_path'] }}" alt="backdrop_image"
+                            class="hover:opacity-75 transition ease-in-out duration-150"></a>
+                    @else
+                    <img src="https://via.placeholder.com/50x75" alt="poster">
+                    @endif
+                </div>
+            </div>
+            @endforeach
+        </div>
+
+        <div class="fixed top-0 left-0 h-full w-full flex items-center shadow-lg overflow-y-auto"
+            style="background-color: rgba(0,0,0,.5);" x-show.transition.opacity="isOpen">
+            <div class="container mx-auto lg:px-32 rounded-lg overflow-y-auto">
+                <div class="bg-gray-900 rounded">
+                    <div class="flex justify-end pr-4 pt-2">
+                        <button @click="isOpen = false" @keydown.escape.window="isOpen = false"
+                            class="text-3xl leading-none hover:text-gray-300">&times;</button>
+                    </div>
+                    <div class="modal-body px-8 py-8">
+                        <img :src="image" alt="poster">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+@endsection
